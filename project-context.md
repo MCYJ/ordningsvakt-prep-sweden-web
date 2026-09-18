@@ -24,3 +24,12 @@
 - Global text uses `word-break: keep-all`; long terms may wrap only at valid spaces or soft boundaries.
 - App Store and Google Play controls share an exact `194×75` frame.
 - No analytics or Search Console IDs are configured; do not fabricate them.
+
+## 2026-09-19 — Production deployment complete
+- Public repository: `MCYJ/ordningsvakt-prep-sweden-web`.
+- Production: `https://mcyj.github.io/ordningsvakt-prep-sweden-web/` with Swedish default and complete English support.
+- Built 38 indexable routes: twelve substantive guides per locale plus landing, guide index, FAQ, privacy, terms, support and contact.
+- Local and production HTTP QA passed all sitemap routes and seven representative assets; custom 404 returned HTTP 404.
+- Production HTML/CSS verified exact Apple App Store ID `6806567218`, disabled localized Google Play state, `word-break: keep-all` and equal `194×75` marketplace frames.
+- GitHub Pages workflow run `35373844248` completed successfully.
+- Optional GA4 and Search Console remain unconfigured because no verified identifiers or ownership tokens were supplied.
