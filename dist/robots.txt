@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mcyj.github.io/ordningsvakt-prep-sweden-web/sitemap.xml
