@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "check": "node scripts/check.mjs",
+    "build": "node scripts/build.mjs && node scripts/seo-enhance.mjs",
+    "check": "node scripts/check.mjs && node scripts/seo-enhance.mjs --check",
     "test": "npm run build && npm run check"
   }
 }
