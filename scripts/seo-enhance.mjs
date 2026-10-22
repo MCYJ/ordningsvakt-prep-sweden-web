@@ -108,6 +108,10 @@ export async function enhanceSite(root,{check=false}={}){
     if((html.match(/<meta\b[^>]*>/gi)||[]).some(tag=>attr(tag,'name').toLowerCase()==='robots'&&/\bnoindex\b/i.test(attr(tag,'content'))))errors.push(`${url}: indexable route has noindex`);
     const title=html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]||'';
     const key=page.lang+':'+title;if(titleSet.has(key))errors.push(`${url}: duplicate same-language title`);titleSet.add(key);
+    const members=groupFor.get(url),defaultUrl=members.find(u=>pages.get(u).lang===pages.get(urls[0]).lang)||members[0];
+    const expected=members.map(u=>pages.get(u).lang+'|'+u).concat('x-default|'+defaultUrl).sort();
+    const actual=alternates(html).map(tag=>attr(tag,'hreflang')+'|'+decode(attr(tag,'href'))).sort();
+    if(JSON.stringify(actual)!==JSON.stringify(expected))errors.push(`${url}: alternate language set mismatch`);
     for(const tag of alternates(html)){
       const target=decode(attr(tag,'href'));
       if(!pages.has(target)){errors.push(`${url}: alternate missing ${target}`);continue}
