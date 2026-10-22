@@ -32,8 +32,10 @@ export async function enhanceSite(root,{check=false}={}){
   for(const members of custom?.translationGroups||[]){for(const url of members){if(!pages.has(url))throw new Error(`Translation missing: ${url}`);groupFor.set(url,members)}}
   let changed=0,articles=0,offersRemoved=0;
   if(!check){
+    await writeFile(join(out,'assets','seo-layout.css'),'/* Preserve equal marketplace frames when flex direction becomes column. */\nbody{min-width:0}\n.store-row>.store-link,.store-row>.play-badge,.store-row>.store-button.disabled,.store-row>.store-disabled{flex:none}\n');
     for(const [url,page] of pages){
       let html=page.html;
+      if(!html.includes(`${repoPath}/assets/seo-layout.css`))html=html.replace('</head>',`<link rel="stylesheet" href="${repoPath}/assets/seo-layout.css"></head>`);
       const members=groupFor.get(url),defaultUrl=members.find(u=>pages.get(u).lang===pages.get(urls[0]).lang)||members[0];
       html=html.replace(/<link\b[^>]*>/gi,tag=>attr(tag,'rel')==='alternate'&&attr(tag,'hreflang')?'':tag);
       const alternateHtml=members.map(u=>`<link rel="alternate" hreflang="${escape(pages.get(u).lang)}" href="${escape(u)}">`).join('')+`<link rel="alternate" hreflang="x-default" href="${escape(defaultUrl)}">`;
