@@ -1,0 +1,3 @@
+/* Preserve equal marketplace frames when flex direction becomes column. */
+body{min-width:0}
+.store-row>.store-link,.store-row>.play-badge,.store-row>.store-button.disabled,.store-row>.store-disabled{flex:none}
